@@ -1,5 +1,5 @@
 SOURCEDIR = ./src
-SRC = $(SOURCEDIR)/utils/Mouse.c $(SOURCEDIR)/utils/simpleGraphics.c $(SOURCEDIR)/Button/Button.c $(SOURCEDIR)/app.c
+SRC = $(SOURCEDIR)/utils/Mouse.c $(SOURCEDIR)/utils/Graphics.c $(SOURCEDIR)/Button/Button.c $(SOURCEDIR)/TitleBar/TitleBar.c $(SOURCEDIR)/app.c
 TARGETDIR = ./target
 TARGET = $(TARGETDIR)/app.out
 CC = gcc

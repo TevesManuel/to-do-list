@@ -12,7 +12,8 @@ typedef struct Button
     int y;
     int r;
     struct nk_color color;
-    void (*onClickCbk)(void);
+    void (*onClickCbk)(void*);
+    void * onClickCbkArgs;
 }Button;
 
 Button buttonCreate(int x, int y, int r, struct nk_color color);

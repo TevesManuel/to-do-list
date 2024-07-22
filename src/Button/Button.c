@@ -1,6 +1,7 @@
 #include <Button/Button.h>
 #include <math.h>
-#include <utils/simpleGraphics.h>
+#include <stdlib.h>
+#include <utils/Graphics.h>
 
 Button buttonCreate(int x, int y, int r, struct nk_color color)
 {
@@ -27,7 +28,7 @@ void buttonRender(Button * button)
         {
             if(button->onClickCbk)
             {
-                button->onClickCbk();
+                button->onClickCbk(button->onClickCbkArgs);
             }
         }
     }
