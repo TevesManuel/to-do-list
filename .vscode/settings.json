@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "nuklear.h": "c",
+        "stdio.h": "c",
+        "nuklear_gflw.h": "c",
+        "mouse.h": "c",
+        "button.h": "c",
+        "glfw3.h": "c"
+    }
+}
