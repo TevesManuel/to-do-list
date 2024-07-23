@@ -5,6 +5,7 @@
         "nuklear_gflw.h": "c",
         "mouse.h": "c",
         "button.h": "c",
-        "glfw3.h": "c"
+        "glfw3.h": "c",
+        "config.h": "c"
     }
 }

@@ -30,6 +30,7 @@ void draw_circle(float cx, float cy, float r) {
 #ifndef NK_SINGLE_FILE
 #include <nuklear.h>
 #endif
+#include <nuklear_gflw.h>
 
 #include <Config.h>
 #include <stdio.h>
@@ -39,6 +40,8 @@ bool boolean_value;
 
 void drawMainUI(struct nk_context *ctx )
 {
+    nk_glfw3_new_frame();
+
     //Create a nuklear sub window with the main window dimensions
     if (nk_begin(ctx, "Show", nk_rect(0, 0, APP_WINDOW_WIDTH, APP_WINDOW_HEIGHT), 0))
     {
@@ -81,33 +84,40 @@ void drawMainUI(struct nk_context *ctx )
 
         nk_layout_row_dynamic(ctx, APP_WINDOW_HEIGHT/24, 1);
         nk_label(ctx, "@Copyright 2024 TEVES", NK_TEXT_LEFT);
-        // nk_layout_row_dynamic(ctx, 25, 1);
-        // nk_property_int(ctx, "Compression:", 0, &property, 100, 10, 1);
-
-        // nk_layout_row_dynamic(ctx, 25, 1);
-        // if (nk_combo_begin_color(ctx, background_color, nk_vec2(nk_widget_width(ctx),400))) {
-        //     nk_layout_row_dynamic(ctx, 120, 1);
-        //     nk_color_picker(ctx, background_color, NK_RGBA);
-        //     nk_layout_row_dynamic(ctx, 25, 1);
-        //     // bg.r = nk_propertyf(ctx, "#R:", 0, bg.r, 1.0f, 0.01f,0.005f);
-        //     // bg.g = nk_propertyf(ctx, "#G:", 0, bg.g, 1.0f, 0.01f,0.005f);
-        //     // bg.b = nk_propertyf(ctx, "#B:", 0, bg.b, 1.0f, 0.01f,0.005f);
-        //     // bg.a = nk_propertyf(ctx, "#A:", 0, bg.a, 1.0f, 0.01f,0.005f);
-        //     nk_combo_end(ctx);
-        // }
     }
     nk_end(ctx);
 
-            
-    if (true)
+    nk_glfw3_render(NK_ANTI_ALIASING_ON);
+}
+
+struct nk_colorf bg;
+
+void drawCreate(struct nk_context *ctx)
+{
+    if (boolean_value)
     {
-        if (nk_begin(ctx, "Ventana Secundaria", nk_rect(300, 50, 220, 250), 0))
+        // Dibujar cuadrado semitransparente
+        glBegin(GL_QUADS);
+            glColor4f(0.0f, 0.0f, 0.0f, 0.5f); // Color negro con 50% de transparencia
+            glVertex2i(0, 0);
+            glVertex2i(APP_WINDOW_WIDTH, 0);
+            glVertex2i(APP_WINDOW_WIDTH, APP_WINDOW_HEIGHT);
+            glVertex2i(0, APP_WINDOW_HEIGHT);
+        glEnd();
+
+        nk_glfw3_new_frame();
+
+        if (nk_begin(ctx, "Create todo", nk_rect(APP_WINDOW_WIDTH * 0.25, APP_WINDOW_HEIGHT * 0.25, APP_WINDOW_WIDTH * 0.5, APP_WINDOW_HEIGHT * 0.5), NK_WINDOW_BORDER | NK_WINDOW_TITLE))
         {
-            nk_label(ctx, "Esta es la ventana secundaria", NK_TEXT_CENTERED);
+            nk_layout_row_dynamic(ctx, 20, 1);
             if (nk_button_label(ctx, "Cerrar Ventana"))
             {
+                boolean_value = !boolean_value;
+                printf("Hi\n");
             }
+            nk_end(ctx);
         }
-        nk_end(ctx);
+
+        nk_glfw3_render(NK_ANTI_ALIASING_ON);
     }
 }

@@ -20,7 +20,6 @@
 #ifndef NK_SINGLE_FILE
 #include <nuklear.h>
 #endif
-
 #include <nuklear_gflw.h>
 
 #include <utils/Mouse.h>
@@ -47,6 +46,7 @@ int main(void)
         return -1;
     }
 
+    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
     //Unable title bar
     glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
 
@@ -63,6 +63,9 @@ int main(void)
     }
     //Create the context of the window
     glfwMakeContextCurrent(window);
+
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     glfwSetCursorPosCallback(window, cursor_position_callback);
 
@@ -106,21 +109,13 @@ int main(void)
     minimizeButton.onClickCbkArgs = window;
     minimizeButton.onClickCbk = minimizeButtonOnClickCbk;
 
-
     //Main app
     while (!glfwWindowShouldClose(window) && !onExit)
     {
         glfwPollEvents();
         mouseButtonUpdate(window);
         titleBarUpdate(window);
-        nk_glfw3_new_frame();
 
-        drawUI(ctx);
-
-        glViewport(0, 0, APP_WINDOW_WIDTH, APP_WINDOW_HEIGHT);
-        glClear(GL_COLOR_BUFFER_BIT);
-        nk_glfw3_render(NK_ANTI_ALIASING_ON);
-        
         //Configure for render OpenGL
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
@@ -128,6 +123,15 @@ int main(void)
 
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
+
+        //Configure for opengl
+        glViewport(0, 0, APP_WINDOW_WIDTH, APP_WINDOW_HEIGHT);
+        glClear(GL_COLOR_BUFFER_BIT);
+        
+        drawMainUI(ctx);
+
+        drawCreate(ctx);
+
 
         // Draw circle
         buttonRender(&closeButton);
