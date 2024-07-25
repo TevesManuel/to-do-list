@@ -6,6 +6,10 @@
         "mouse.h": "c",
         "button.h": "c",
         "glfw3.h": "c",
-        "config.h": "c"
+        "config.h": "c",
+        "titlebar.h": "c",
+        "math.h": "c",
+        "window.h": "c",
+        "graphics.h": "c"
     }
 }

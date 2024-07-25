@@ -3,8 +3,9 @@
 
 #include <GLFW/glfw3.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
-struct Mouse{
+typedef struct Mouse{
     int x;
     int y;
     struct button
@@ -22,11 +23,10 @@ struct Mouse{
             bool clickdown;
         }right;
     }button;
-};
+}Mouse;
 
-extern struct Mouse Mouse;
-
-void mouseButtonUpdate(GLFWwindow * window);
-void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
+Mouse * mouseCreate();
+void mouseButtonUpdate(GLFWwindow * window, Mouse * mouse);
+void cursor_position_callback(GLFWwindow* win, double x, double y);
 
 #endif

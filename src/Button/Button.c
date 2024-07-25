@@ -1,22 +1,21 @@
-#include <Button/Button.h>
+#include <Controls/Button.h>
 #include <math.h>
 #include <stdlib.h>
-#include <utils/Graphics.h>
 
-Button buttonCreate(int x, int y, int r, struct nk_color color)
+Button * buttonCreate(int x, int y, int r, Color color)
 {
-    Button out;
-    out.x = x;
-    out.y = y;
-    out.r = r;
-    out.color = color;
+    Button * out = (Button*)malloc(sizeof(Button));
+    out->x = x;
+    out->y = y;
+    out->r = r;
+    out->color = color;
     return out;
 }
 
-void buttonRender(Button * button)
+void buttonRender(Window * window, Button * button)
 {
-    int diffx = abs(button->x - Mouse.x);
-    int diffy = abs(button->y - Mouse.y);
+    int diffx = abs(button->x - window->mouse->x);
+    int diffy = abs(button->y - window->mouse->y);
     int diffxp2 = diffx * diffx;
     int diffyp2 = diffy * diffy;
     int distance = sqrt(diffxp2 + diffyp2);
@@ -24,7 +23,7 @@ void buttonRender(Button * button)
     if(distance <= button->r)
     {
         attenuate = 1.0;
-        if(Mouse.button.left.clickup)
+        if(window->mouse->button.left.clickup)
         {
             if(button->onClickCbk)
             {
@@ -32,6 +31,6 @@ void buttonRender(Button * button)
             }
         }
     }
-    glColor3f((button->color.r/255.0)*attenuate, (button->color.g/255.0)*attenuate, (button->color.b/255.0)*attenuate);
+    colorSetGLColor(button->color);
     draw_circle(button->x, button->y, button->r);
 };
