@@ -14,5 +14,7 @@ Color colorFromRGB(u8 r, u8 g, u8 b);
 Color colorFromRGBA(u8 r, u8 g, u8 b, u8 a);
 void colorSetGLColor(Color color);
 
+void initGraphics();
+void renderText(const char * text, int x, int y, int scale, Color color);
 void draw_circle(float cx, float cy, float r);
 #endif

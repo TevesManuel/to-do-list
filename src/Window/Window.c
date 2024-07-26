@@ -1,5 +1,6 @@
 #include <Window/Window.h>
 #include <stdio.h>
+#include <utils/Graphics.h>
 
 static void error_callback(int e, const char *d)
 {
@@ -33,6 +34,7 @@ Window * windowCreate(u16 width, u16 height, const char * title)
     glfwSetWindowUserPointer(window, out);
     //Create the context of the window
     glfwMakeContextCurrent(window);
+    initGraphics();
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
