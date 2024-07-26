@@ -30,7 +30,7 @@ Color colorFromRGBA(u8 r, u8 g, u8 b, u8 a)
 
 void colorSetGLColor(Color color)
 {
-    glColor4f((color.r/color.glow)/255.0f, (color.g/color.glow)/255.0f, (color.b/color.glow)/255.0f, color.a/255.0f); // Color negro con 50% de transparencia
+    glColor4f((color.r*color.glow/255.0f)/255.0f, (color.g*color.glow/255.0f)/255.0f, (color.b*color.glow/255.0f)/255.0f, color.a/255.0f);
 }
 
 void draw_circle(float cx, float cy, float r) {

@@ -3,7 +3,7 @@ SRC = $(SOURCEDIR)/Window/Input/Mouse.c $(SOURCEDIR)/Window/TitleBar/TitleBar.c 
 TARGETDIR = ./target
 TARGET = $(TARGETDIR)/app.out
 CC = gcc
-LIBS = -lglfw -lGL -lm -I./include/
+LIBS = -lglfw -lGL -lm -I./include/ -lfreetype -I/usr/include/freetype2 
 default:
 	$(CC) $(SRC) -o $(TARGET) $(LIBS)
 	$(TARGET)

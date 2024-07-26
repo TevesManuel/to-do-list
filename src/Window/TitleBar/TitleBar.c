@@ -55,12 +55,19 @@ void titleBarUpdate(Window * window, TitleBar * titleBar)
         titleBar->dragged = false;
     }
 
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    glEnable(GL_TEXTURE_2D);
+    glTranslatef(0, 0, 0);
     glBegin(GL_QUADS);
+        colorSetGLColor(titleBar->color);
         glVertex2i(0, 0);
         glVertex2i(APP_WINDOW_WIDTH, 0);
         glVertex2i(APP_WINDOW_WIDTH, 15);
         glVertex2i(0, 15);
     glEnd();
+    glPopMatrix();
+
     buttonRender(window, titleBar->closeButton);
     buttonRender(window, titleBar->minimizeButton);
 }

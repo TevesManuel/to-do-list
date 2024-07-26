@@ -19,10 +19,10 @@ void buttonRender(Window * window, Button * button)
     int diffxp2 = diffx * diffx;
     int diffyp2 = diffy * diffy;
     int distance = sqrt(diffxp2 + diffyp2);
-    float attenuate = 0.5;
+    button->color.glow = 128;
     if(distance <= button->r)
     {
-        attenuate = 1.0;
+        button->color.glow = 255;
         if(window->mouse->button.left.clickup)
         {
             if(button->onClickCbk)
