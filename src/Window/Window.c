@@ -67,6 +67,7 @@ Window * windowCreate(u16 width, u16 height, const char * title)
     glfwSetCursorPosCallback(window, cursor_position_callback);
 
     out->titleBar = titleBarCreate(out);
+    out->titleBar->title = title;
 
     return out;
 }

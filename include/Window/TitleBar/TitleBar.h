@@ -16,6 +16,7 @@ typedef struct TitleBar
     Color color;
     Button * closeButton;
     Button * minimizeButton;
+    const char * title;
 }TitleBar;
 
 TitleBar * titleBarCreate(Window * window);

@@ -70,4 +70,6 @@ void titleBarUpdate(Window * window, TitleBar * titleBar)
 
     buttonRender(window, titleBar->closeButton);
     buttonRender(window, titleBar->minimizeButton);
+
+    renderText(titleBar->title, 10, 10, 1, colorFromRGB(255, 255, 255));
 }
