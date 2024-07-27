@@ -5,6 +5,7 @@
 #include <Config.h>
 #include <Window/Input/Mouse.h>
 #include <Window/TitleBar/TitleBar.h>
+#include <utils/Graphics.h>
 
 typedef struct TitleBar TitleBar;
 
@@ -15,9 +16,10 @@ typedef struct Window
     GLFWwindow * glfwWindow;
     Mouse * mouse;
     TitleBar * titleBar;
+    Color bg;
 }Window;
 
-Window * windowCreate(u16 width, u16 height, const char * title);
+Window * windowCreate(u16 width, u16 height, const char * title, Color bg);
 bool windowIsOpen(Window * window);
 void windowRefresh(Window * window);
 void windowDestroy(Window * window);

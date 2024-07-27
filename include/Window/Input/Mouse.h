@@ -1,13 +1,16 @@
-#ifndef MOUSE_H
-#define MOUSE_H
+#ifndef TEVES_WINDOW_INPUT_MOUSE_H
+#define TEVES_WINDOW_INPUT_MOUSE_H
 
 #include <GLFW/glfw3.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <Config.h>
+#include <utils/Vec2.h>
+
+// typedef struct Vec2u Vec2u;
 
 typedef struct Mouse{
-    int x;
-    int y;
+    Vec2u position;
     struct button
     {
         struct left

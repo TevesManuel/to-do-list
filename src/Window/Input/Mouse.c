@@ -5,8 +5,8 @@
 Mouse * mouseCreate()
 {
     Mouse * out = malloc(sizeof(Mouse));
-    out->x = 0;
-    out->y = 0;
+    out->position.x = 0;
+    out->position.y = 0;
     out->button.left.clicked = false;
     out->button.left.clickdown = false;
     out->button.left.clickup = false;
@@ -59,7 +59,6 @@ void mouseButtonUpdate(GLFWwindow * window, Mouse * mouse)
 void cursor_position_callback(GLFWwindow* win, double x, double y)
 {
     Window* window = (Window*)glfwGetWindowUserPointer(win);
-    // printf("%d %f %f\n", window->id, x, y);
-    window->mouse->x = x;
-    window->mouse->y = y;
+    window->mouse->position.x = x;
+    window->mouse->position.y = y;
 }

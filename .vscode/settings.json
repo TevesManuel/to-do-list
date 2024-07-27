@@ -12,6 +12,9 @@
         "window.h": "c",
         "graphics.h": "c",
         "iterator": "c",
-        "ft2build.h": "c"
+        "ft2build.h": "c",
+        "windowbutton.h": "c",
+        "vec2.h": "c",
+        "random": "c"
     }
 }

@@ -1,23 +1,21 @@
-#ifndef BUTTON_H
-#define BUTTON_H
+#ifndef TEVES_CONTROLS_BUTTON_H
+#define TEVES_CONTROLS_BUTTON_H
 
-#include <Window/Input/Mouse.h>
+#include <utils/Vec2.h>
 #include <utils/Graphics.h>
-#include <Window/Window.h>
-
-typedef struct Window Window;
 
 typedef struct Button
 {
-    int x;
-    int y;
-    int r;
-    Color color;
-    void (*onClickCbk)(void*);
-    void * onClickCbkArgs;
+    const char * label;
+    void (*onClickFn)(void*);
+    void * onClickFnArg;
+    Vec2u pos;
+    Vec2u size;
+    Color bg;
+    Color fg;
 }Button;
 
-Button * buttonCreate(int x, int y, int r, Color color);
-void buttonRender(Window * window, Button * button);
+Button * buttonCreate(const char * label, void (*onClick)(void*), void * argFn, Vec2u pos, Vec2u size);
+void buttonUpdate(Button * button);
 
 #endif

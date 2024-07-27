@@ -1,11 +1,11 @@
-#ifndef TITLEBAR_H
-#define TITLEBAR_H
+#ifndef TEVES_WINDOW_TITLEBAR_H
+#define TEVES_WINDOW_TITLEBAR_H
 
 #include <stdbool.h>
 #include <utils/Graphics.h>
-#include <Controls/Button.h>
+#include <Controls/WindowButton.h>
 
-typedef struct Button Button;
+typedef struct WindowButton WindowButton;
 typedef struct Window Window;
 
 typedef struct TitleBar
@@ -14,8 +14,8 @@ typedef struct TitleBar
     double rx;
     double ry;
     Color color;
-    Button * closeButton;
-    Button * minimizeButton;
+    WindowButton * closeButton;
+    WindowButton * minimizeButton;
     const char * title;
 }TitleBar;
 

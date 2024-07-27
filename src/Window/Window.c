@@ -9,9 +9,10 @@ static void error_callback(int e, const char *d)
 
 u8 id = 1;
 
-Window * windowCreate(u16 width, u16 height, const char * title)
+Window * windowCreate(u16 width, u16 height, const char * title, Color bg)
 {
     Window * out = (Window*)malloc(sizeof(Window));
+    out->bg = bg;
     out->onExit = false;
     out->id = id;
     id++;
@@ -94,7 +95,6 @@ void windowNewFrame(Window * window)
 {
     glfwPollEvents();
     mouseButtonUpdate(window->glfwWindow, window->mouse);
-    // titleBarUpdate(window);
 
     //Configure for render OpenGL
     glMatrixMode(GL_PROJECTION);
@@ -106,5 +106,6 @@ void windowNewFrame(Window * window)
 
     //Configure for opengl
     glViewport(0, 0, APP_WINDOW_WIDTH, APP_WINDOW_HEIGHT);
+    colorSetGLBgColor(window->bg);
     glClear(GL_COLOR_BUFFER_BIT);
 }

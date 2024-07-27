@@ -1,5 +1,12 @@
 SOURCEDIR = ./src
-SRC = $(SOURCEDIR)/Window/Input/Mouse.c $(SOURCEDIR)/Window/TitleBar/TitleBar.c  $(SOURCEDIR)/Window/Window.c $(SOURCEDIR)/Button/Button.c $(SOURCEDIR)/utils/Graphics.c $(SOURCEDIR)/app.c
+SRC += $(SOURCEDIR)/utils/Graphics.c 
+SRC += $(SOURCEDIR)/utils/Vec2.c
+SRC += $(SOURCEDIR)/Window/Input/Mouse.c 
+SRC += $(SOURCEDIR)/Window/TitleBar/TitleBar.c
+SRC += $(SOURCEDIR)/Window/Window.c
+SRC += $(SOURCEDIR)/Controls/WindowButton.c
+SRC += $(SOURCEDIR)/Controls/Button.c
+SRC += $(SOURCEDIR)/app.c
 TARGETDIR = ./target
 TARGET = $(TARGETDIR)/app.out
 CC = gcc

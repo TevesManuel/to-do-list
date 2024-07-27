@@ -23,8 +23,8 @@ TitleBar * titleBarCreate(Window * window)
     out->ry = 0;
     out->dragged = false;
     out->color = TITLE_BG;
-    out->closeButton = buttonCreate(APP_WINDOW_WIDTH*0.99, 7, 7, colorFromRGB(255, 0, 0));
-    out->minimizeButton = buttonCreate(APP_WINDOW_WIDTH*0.99 - 18, 7, 7, colorFromRGB(180, 180, 180));
+    out->closeButton = windowButtonCreate(vec2uFrom(APP_WINDOW_WIDTH*0.99, 7), 7, colorFromRGB(255, 0, 0));
+    out->minimizeButton = windowButtonCreate(vec2uFrom(APP_WINDOW_WIDTH*0.99 - 18, 7), 7, colorFromRGB(180, 180, 180));
     out->closeButton->onClickCbk = closeButtonCbk;
     out->closeButton->onClickCbkArgs = (void*)window;
     out->minimizeButton->onClickCbk = minimizeButtonOnClickCbk;
@@ -34,19 +34,19 @@ TitleBar * titleBarCreate(Window * window)
 
 void titleBarUpdate(Window * window, TitleBar * titleBar)
 {
-    if(window->mouse->button.left.clickdown && window->mouse->y < APP_WINDOW_HEIGHT*0.05)
+    if(window->mouse->button.left.clickdown && window->mouse->position.y < APP_WINDOW_HEIGHT*0.05)
     {
         titleBar->dragged = true;
     
-        titleBar->rx = window->mouse->x;
-        titleBar->ry = window->mouse->y;
+        titleBar->rx = window->mouse->position.x;
+        titleBar->ry = window->mouse->position.y;
     }
     if(titleBar->dragged)
     {
         int xpos, ypos;
         glfwGetWindowPos(window->glfwWindow, &xpos, &ypos);
-        int wpx = (xpos + window->mouse->x - titleBar->rx);
-        int wpy = (ypos + window->mouse->y - titleBar->ry);
+        int wpx = (xpos + window->mouse->position.x - titleBar->rx);
+        int wpy = (ypos + window->mouse->position.y - titleBar->ry);
         if(wpx > 5 && wpy > 5)
             glfwSetWindowPos(window->glfwWindow, wpx, wpy);
     }
@@ -60,7 +60,7 @@ void titleBarUpdate(Window * window, TitleBar * titleBar)
     glEnable(GL_TEXTURE_2D);
     glTranslatef(0, 0, 0);
     glBegin(GL_QUADS);
-        colorSetGLColor(titleBar->color);
+        colorSetGLFgColor(titleBar->color);
         glVertex2i(0, 0);
         glVertex2i(APP_WINDOW_WIDTH, 0);
         glVertex2i(APP_WINDOW_WIDTH, 15);
@@ -68,8 +68,8 @@ void titleBarUpdate(Window * window, TitleBar * titleBar)
     glEnd();
     glPopMatrix();
 
-    buttonRender(window, titleBar->closeButton);
-    buttonRender(window, titleBar->minimizeButton);
+    windowButtonRender(window, titleBar->closeButton);
+    windowButtonRender(window, titleBar->minimizeButton);
 
-    renderText(titleBar->title, 10, 10, 1, colorFromRGB(255, 255, 255));
+    renderText(titleBar->title, vec2uFrom(10, 10), 1, colorFromGrayScale(255));
 }
