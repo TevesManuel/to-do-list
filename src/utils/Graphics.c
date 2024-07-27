@@ -122,6 +122,7 @@ Vec2u renderChar(char t, int x, int y, float scale, Color color)
 #define SPACE_BEETWEEN_CHARS 2
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 
+// TODO! fix dx in the title
 Vec2u renderText(const char * text, Vec2u position, int scale, Color color)
 {
     int dx = 0;
