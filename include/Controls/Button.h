@@ -9,13 +9,13 @@ typedef struct Button
     const char * label;
     void (*onClickFn)(void*);
     void * onClickFnArg;
-    Vec2u pos;
+    Vec2u position;
     Vec2u size;
     Color bg;
     Color fg;
 }Button;
 
-Button * buttonCreate(const char * label, void (*onClick)(void*), void * argFn, Vec2u pos, Vec2u size);
+Button * buttonCreate(const char * label, void (*onClick)(void*), void * argFn, Vec2u position, Vec2u size);
 void buttonUpdate(Button * button);
 
 #endif

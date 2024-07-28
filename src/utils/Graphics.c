@@ -58,9 +58,42 @@ void initGraphics() {
 
 #include <utils/Vec2.h>
 
-Vec2u renderChar(char t, u16 x, u16 y, float scale, Color color)
+#define CHAR_PRESCALE 0.025
+#define SPACE_BEETWEEN_CHARS 2
+
+Vec2u sizeChar(char c, float scale)
+{
+    if(c == 32)
+    {
+        Vec2u out;
+        out.x = 5*scale;
+        out.y = 1*scale;
+        return out;
+    }
+    FT_Load_Char(face, c, FT_LOAD_RENDER);
+    u16 height = face->glyph->bitmap.rows;
+    u16 width = face->glyph->bitmap.width;
+    width = width * scale * CHAR_PRESCALE;
+    height = height * scale * CHAR_PRESCALE;
+    return vec2uFrom(width, height);
+}
+
+Vec2u sizeText(const char * text, float scale)
+{
+    Vec2u d;
+    Vec2u out = vec2uFrom(0, 0);
+    for(u16 i = 0; i < strlen(text); i++)
+    {
+        d = sizeChar(text[i], scale);
+        out.x += d.x + SPACE_BEETWEEN_CHARS;
+        out.y = MAX(out.y, d.y);
+    }
+    return out;
+}
+
+Vec2u renderChar(char c, u16 x, u16 y, float scale, Color color)
 {    
-    if(t == 32)
+    if(c == 32)
     {
         Vec2u out;
         out.x = 5*scale;
@@ -72,7 +105,7 @@ Vec2u renderChar(char t, u16 x, u16 y, float scale, Color color)
 
     glGenTextures(1, &texture);
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-    FT_Load_Char(face, t, FT_LOAD_RENDER);
+    FT_Load_Char(face, c, FT_LOAD_RENDER);
 
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, texture);
@@ -92,8 +125,8 @@ Vec2u renderChar(char t, u16 x, u16 y, float scale, Color color)
     glTranslatef(x, y, 0);
     u16 height = face->glyph->bitmap.rows;
     u16 width = face->glyph->bitmap.width;
-    width = width * scale * 0.025;
-    height = height * scale * 0.025;
+    width = width * scale * CHAR_PRESCALE;
+    height = height * scale * CHAR_PRESCALE;
     glBegin(GL_QUADS);
     
         glTexCoord2i(0, 0);
@@ -111,37 +144,46 @@ Vec2u renderChar(char t, u16 x, u16 y, float scale, Color color)
     glEnd();
     glPopMatrix();
 
-    printf("C: \"%c\", X: %d, Y: %d, W: %d, H: %d\n", t, x, y, width, height);
+    // printf("C: \"%c\", X: %d, Y: %d, W: %d, H: %d\n", c, x, y, width, height);
 
     glDeleteTextures(1, &texture);
     Vec2u out;
     out.x = width;
     out.y = height;
+    #ifdef TEVES_DEBUG_CHAR
+    colorSetGLFgColor(colorFromRGB(0, 255, 0));
+    renderRectOutline(vec2uFrom(x, y), out);
+    #endif
     return out;
 }
 
 #include <string.h>
 
-#define SPACE_BEETWEEN_CHARS 2
-#define MAX(a, b) ((a) > (b) ? (a) : (b))
 
-Vec2u renderText(const char * text, Vec2u position, int scale, Color color)
+Vec2u renderText(const char * text, Vec2u position, int scale, Color color, Align textAlign)
 {
+    Vec2u renderPosition = position;
+    if(textAlign == Center)
+    {
+        renderPosition.x = position.x - (sizeText(text, scale).x/2.0);
+    }
     int dx = 0;
     int dy = 0;
     for(int i = 0; i < strlen(text); i++)
     {
-        Vec2u d = renderChar(text[i], position.x + dx, position.y, scale, color);
-        #ifdef TEVES_DEBUG
-        colorSetGLFgColor(colorFromRGB(0, 255, 0));
-        renderRectOutline(vec2uFrom(position.x + dx, position.y), d);
-        #endif
+        Vec2u d = renderChar(text[i], renderPosition.x + dx, renderPosition.y, scale, color);
+
         dx += d.x + SPACE_BEETWEEN_CHARS;
         dy = MAX(dy, d.y);
     }
     Vec2u out;
     out.x = dx;
     out.y = dy;
+    #ifdef TEVES_DEBUG
+    colorSetGLFgColor(colorFromRGB(0, 255, 0));
+    renderCircle(position, 4);
+    renderRectOutline(renderPosition, out);
+    #endif
     return out;
 }
 
@@ -173,7 +215,7 @@ void renderRectOutline(Vec2u pos, Vec2u size)
     glPopMatrix();
 }
 
-void renderCircle(float cx, float cy, float r) {
+void renderCircle(Vec2u pos, float r) {
     const int num_segments = 100; // Número de segmentos en el círculo
     float theta = 2.0f * M_PI / (float)num_segments; // Ángulo entre segmentos
     float cos_theta = cosf(theta);
@@ -181,11 +223,14 @@ void renderCircle(float cx, float cy, float r) {
     float x = r;
     float y = 0.0f;
 
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    glTranslatef(pos.x, pos.y, 0);
     glBegin(GL_TRIANGLE_FAN);
-    glVertex2f(cx, cy); // Centro del círculo
+    glVertex2f(0, 0); // Centro del círculo
 
     for (int i = 0; i <= num_segments; ++i) {
-        glVertex2f(x + cx, y + cy); // Vértice del círculo
+        glVertex2f(x, y); // Vértice del círculo
 
         // Calcular el siguiente vértice
         float temp_x = x;
@@ -193,4 +238,5 @@ void renderCircle(float cx, float cy, float r) {
         y = sin_theta * temp_x + cos_theta * y;
     }
     glEnd();
+    glPopMatrix();
 }

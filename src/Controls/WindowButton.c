@@ -31,5 +31,5 @@ void windowButtonRender(Window * window, WindowButton * button)
         }
     }
     colorSetGLFgColor(button->color);
-    renderCircle(button->position.x, button->position.y, button->r);
+    renderCircle(button->position, button->r);
 };

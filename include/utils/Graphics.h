@@ -18,8 +18,15 @@ void colorSetGLFgColor(Color color);
 void colorSetGLBgColor(Color color);
 
 void initGraphics();
-Vec2u renderText(const char * text, Vec2u position, int scale, Color color);
+
+typedef enum 
+{
+    Left,
+    Center
+}Align;
+
+Vec2u renderText(const char * text, Vec2u position, int scale, Color color, Align textAlign);
 void renderRect(Vec2u pos, Vec2u size);
 void renderRectOutline(Vec2u pos, Vec2u size);
-void renderCircle(float cx, float cy, float r);
+void renderCircle(Vec2u pos, float r);
 #endif

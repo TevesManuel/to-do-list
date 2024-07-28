@@ -71,5 +71,5 @@ void titleBarUpdate(Window * window, TitleBar * titleBar)
     windowButtonRender(window, titleBar->closeButton);
     windowButtonRender(window, titleBar->minimizeButton);
 
-    renderText(titleBar->title, vec2uFrom(10, 10), 1, colorFromGrayScale(255));
+    renderText(titleBar->title, vec2uFrom(10, 10), 1, colorFromGrayScale(255), Left);
 }
