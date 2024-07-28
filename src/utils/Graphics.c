@@ -58,12 +58,13 @@ void initGraphics() {
 
 #include <utils/Vec2.h>
 
-Vec2u renderChar(char t, int x, int y, float scale, Color color)
+Vec2u renderChar(char t, u16 x, u16 y, float scale, Color color)
 {    
     if(t == 32)
     {
         Vec2u out;
-        out.x = 1.5*scale;
+        out.x = 5*scale;
+        out.y = 1*scale;
         return out;
     }
 
@@ -89,8 +90,8 @@ Vec2u renderChar(char t, int x, int y, float scale, Color color)
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, texture);
     glTranslatef(x, y, 0);
-    unsigned int height = face->glyph->bitmap.rows;
-    unsigned int width = face->glyph->bitmap.width;
+    u16 height = face->glyph->bitmap.rows;
+    u16 width = face->glyph->bitmap.width;
     width = width * scale * 0.025;
     height = height * scale * 0.025;
     glBegin(GL_QUADS);
@@ -110,10 +111,12 @@ Vec2u renderChar(char t, int x, int y, float scale, Color color)
     glEnd();
     glPopMatrix();
 
+    printf("C: \"%c\", X: %d, Y: %d, W: %d, H: %d\n", t, x, y, width, height);
+
     glDeleteTextures(1, &texture);
     Vec2u out;
-    out.x = height;
-    out.y = width;
+    out.x = width;
+    out.y = height;
     return out;
 }
 
@@ -122,7 +125,6 @@ Vec2u renderChar(char t, int x, int y, float scale, Color color)
 #define SPACE_BEETWEEN_CHARS 2
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 
-// TODO! fix dx in the title
 Vec2u renderText(const char * text, Vec2u position, int scale, Color color)
 {
     int dx = 0;
@@ -130,8 +132,11 @@ Vec2u renderText(const char * text, Vec2u position, int scale, Color color)
     for(int i = 0; i < strlen(text); i++)
     {
         Vec2u d = renderChar(text[i], position.x + dx, position.y, scale, color);
+        #ifdef TEVES_DEBUG
+        colorSetGLFgColor(colorFromRGB(0, 255, 0));
+        renderRectOutline(vec2uFrom(position.x + dx, position.y), d);
+        #endif
         dx += d.x + SPACE_BEETWEEN_CHARS;
-        printf("dx %d c %c\n", dx, text[i]);
         dy = MAX(dy, d.y);
     }
     Vec2u out;
@@ -140,7 +145,35 @@ Vec2u renderText(const char * text, Vec2u position, int scale, Color color)
     return out;
 }
 
-void draw_circle(float cx, float cy, float r) {
+void renderRect(Vec2u pos, Vec2u size)
+{
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    glTranslatef(pos.x, pos.y, 0);
+    glBegin(GL_QUADS);
+        glVertex2i(0, 0);
+        glVertex2i(size.x, 0);
+        glVertex2i(size.x, size.y);
+        glVertex2i(0, size.y);
+    glEnd();
+    glPopMatrix();
+}
+
+void renderRectOutline(Vec2u pos, Vec2u size)
+{
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    glTranslatef(pos.x, pos.y, 0);
+    glBegin(GL_LINE_LOOP);
+        glVertex2i(0, 0); 
+        glVertex2i(size.x, 0);
+        glVertex2i(size.x, size.y);
+        glVertex2i(0, size.y);
+    glEnd();
+    glPopMatrix();
+}
+
+void renderCircle(float cx, float cy, float r) {
     const int num_segments = 100; // Número de segmentos en el círculo
     float theta = 2.0f * M_PI / (float)num_segments; // Ángulo entre segmentos
     float cos_theta = cosf(theta);

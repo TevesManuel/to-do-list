@@ -11,6 +11,10 @@ TARGETDIR = ./target
 TARGET = $(TARGETDIR)/app.out
 CC = gcc
 LIBS = -lglfw -lGL -lm -I./include/ -lfreetype -I/usr/include/freetype2 
+
 default:
 	$(CC) $(SRC) -o $(TARGET) $(LIBS)
+	$(TARGET)
+debug:
+	$(CC) $(SRC) -o $(TARGET) $(LIBS) -DTEVES_DEBUG
 	$(TARGET)

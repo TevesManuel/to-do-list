@@ -17,16 +17,6 @@ Button * buttonCreate(const char * label, void (*onClick)(void*), void * argFn, 
 
 void buttonUpdate(Button * button)
 {
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    glEnable(GL_TEXTURE_2D);
-    glTranslatef(button->pos.x, button->pos.y, 0);
-    glBegin(GL_QUADS);
-        colorSetGLFgColor(button->bg);
-        glVertex2i(0, 0);
-        glVertex2i(button->size.x, 0);
-        glVertex2i(button->size.x, button->size.y);
-        glVertex2i(0, button->size.y);
-    glEnd();
-    glPopMatrix();
+    colorSetGLFgColor(button->bg);
+    renderRect(button->pos, button->size);
 }

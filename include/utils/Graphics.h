@@ -19,5 +19,7 @@ void colorSetGLBgColor(Color color);
 
 void initGraphics();
 Vec2u renderText(const char * text, Vec2u position, int scale, Color color);
-void draw_circle(float cx, float cy, float r);
+void renderRect(Vec2u pos, Vec2u size);
+void renderRectOutline(Vec2u pos, Vec2u size);
+void renderCircle(float cx, float cy, float r);
 #endif
