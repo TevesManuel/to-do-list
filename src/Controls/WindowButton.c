@@ -1,5 +1,4 @@
 #include <Controls/WindowButton.h>
-#include <math.h>
 #include <stdlib.h>
 
 WindowButton * windowButtonCreate(Vec2u position, int r, Color color)
@@ -13,13 +12,8 @@ WindowButton * windowButtonCreate(Vec2u position, int r, Color color)
 
 void windowButtonRender(Window * window, WindowButton * button)
 {
-    int diffx = abs(button->position.x - window->mouse->position.x);
-    int diffy = abs(button->position.y - window->mouse->position.y);
-    int diffxp2 = diffx * diffx;
-    int diffyp2 = diffy * diffy;
-    int distance = sqrt(diffxp2 + diffyp2);
     button->color.glow = 128;
-    if(distance <= button->r)
+    if(mouseIsOverRadius(window->mouse, button->position, button->r))
     {
         button->color.glow = 255;
         if(window->mouse->button.left.clickup)
@@ -31,5 +25,5 @@ void windowButtonRender(Window * window, WindowButton * button)
         }
     }
     colorSetGLFgColor(button->color);
-    renderCircle(button->position, button->r);
+    renderCircle(button->position, button->r, button->color);
 };

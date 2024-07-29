@@ -26,7 +26,7 @@ typedef enum
 }Align;
 
 Vec2u renderText(const char * text, Vec2u position, int scale, Color color, Align textAlign);
-void renderRect(Vec2u pos, Vec2u size);
-void renderRectOutline(Vec2u pos, Vec2u size);
-void renderCircle(Vec2u pos, float r);
+void renderRect(Vec2u pos, Vec2u size, Color color);
+void renderRectOutline(Vec2u pos, Vec2u size, Color color);
+void renderCircle(Vec2u pos, float r, Color color);
 #endif

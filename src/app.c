@@ -13,7 +13,6 @@ void testFn(void * arg)
 
 int main()
 {       
-    //Init GLFW and catch err
     if (!glfwInit())
     {
         fprintf(stderr, "Failed to initialize GLFW\n");
@@ -21,13 +20,12 @@ int main()
     }
 
     Window * window = windowCreate(APP_WINDOW_WIDTH, APP_WINDOW_HEIGHT, "To Do List", colorFromGrayScale(10));
-    Button * button = buttonCreate("Touch me", testFn, window, vec2uFrom(100, 100), vec2uFrom(100, 100));
+    Button * button = buttonCreate("Touch me", testFn, window, vec2uFrom(100, 100), vec2uFrom(100, 100), colorFromGrayScale(200), colorFromGrayScale(0));
     while(windowIsOpen(window))
     {
         windowNewFrame(window);
 
-        buttonUpdate(button);
-        // renderText("Texto de prueba\0", 100, 100, 1.5, colorFromGrayScale(255));
+        buttonUpdate(window, button);
 
         windowRefresh(window);
     }

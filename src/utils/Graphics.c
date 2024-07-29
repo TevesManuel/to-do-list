@@ -187,8 +187,9 @@ Vec2u renderText(const char * text, Vec2u position, int scale, Color color, Alig
     return out;
 }
 
-void renderRect(Vec2u pos, Vec2u size)
+void renderRect(Vec2u pos, Vec2u size, Color color)
 {
+    colorSetGLFgColor(color);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     glTranslatef(pos.x, pos.y, 0);
@@ -201,8 +202,9 @@ void renderRect(Vec2u pos, Vec2u size)
     glPopMatrix();
 }
 
-void renderRectOutline(Vec2u pos, Vec2u size)
+void renderRectOutline(Vec2u pos, Vec2u size, Color color)
 {
+    colorSetGLFgColor(color);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     glTranslatef(pos.x, pos.y, 0);
@@ -215,9 +217,10 @@ void renderRectOutline(Vec2u pos, Vec2u size)
     glPopMatrix();
 }
 
-void renderCircle(Vec2u pos, float r) {
-    const int num_segments = 100; // Número de segmentos en el círculo
-    float theta = 2.0f * M_PI / (float)num_segments; // Ángulo entre segmentos
+void renderCircle(Vec2u pos, float r, Color color) {
+    colorSetGLFgColor(color);
+    const int num_segments = 100;
+    float theta = 2.0f * M_PI / (float)num_segments;
     float cos_theta = cosf(theta);
     float sin_theta = sinf(theta);
     float x = r;
@@ -227,12 +230,11 @@ void renderCircle(Vec2u pos, float r) {
     glLoadIdentity();
     glTranslatef(pos.x, pos.y, 0);
     glBegin(GL_TRIANGLE_FAN);
-    glVertex2f(0, 0); // Centro del círculo
+    glVertex2f(0, 0);
 
     for (int i = 0; i <= num_segments; ++i) {
-        glVertex2f(x, y); // Vértice del círculo
+        glVertex2f(x, y);
 
-        // Calcular el siguiente vértice
         float temp_x = x;
         x = cos_theta * x - sin_theta * y;
         y = sin_theta * temp_x + cos_theta * y;

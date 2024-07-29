@@ -31,5 +31,7 @@ typedef struct Mouse{
 Mouse * mouseCreate();
 void mouseButtonUpdate(GLFWwindow * window, Mouse * mouse);
 void cursor_position_callback(GLFWwindow* win, double x, double y);
+bool mouseIsOverRect(Mouse * mouse, Vec2u rectPosition, Vec2u rectSize);
+bool mouseIsOverRadius(Mouse * mouse, Vec2u position, float radius);
 
 #endif

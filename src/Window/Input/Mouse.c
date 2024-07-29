@@ -1,6 +1,7 @@
 #include <Window/Input/Mouse.h>
 #include <Window/Window.h>
 #include <stdio.h>
+#include <math.h>
 
 Mouse * mouseCreate()
 {
@@ -61,4 +62,27 @@ void cursor_position_callback(GLFWwindow* win, double x, double y)
     Window* window = (Window*)glfwGetWindowUserPointer(win);
     window->mouse->position.x = x;
     window->mouse->position.y = y;
+}
+
+bool mouseIsOverRect(Mouse * mouse, Vec2u rectPosition, Vec2u rectSize)
+{
+    if(mouse->position.x > rectPosition.x
+    && mouse->position.x < rectPosition.x + rectSize.x
+    && mouse->position.y > rectPosition.y
+    && mouse->position.y < rectPosition.y + rectSize.y)
+        return true;
+    return false;
+}
+bool mouseIsOverRadius(Mouse * mouse, Vec2u position, float radius)
+{
+    int diffx = abs(position.x - mouse->position.x);
+    int diffy = abs(position.y - mouse->position.y);
+    int diffxp2 = diffx * diffx;
+    int diffyp2 = diffy * diffy;
+    int distance = sqrt(diffxp2 + diffyp2);
+    if(distance <= radius)
+    {
+        return true;
+    }
+    return false;
 }

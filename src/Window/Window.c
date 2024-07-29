@@ -17,13 +17,10 @@ Window * windowCreate(u16 width, u16 height, const char * title, Color bg)
     out->id = id;
     id++;
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-    //Unable title bar
     glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
 
-    //Create error cbk
     glfwSetErrorCallback(error_callback);
 
-    //Create GLFW window & catch err
     GLFWwindow* window = glfwCreateWindow(width, height, title, NULL, NULL);
     if (!window)
     {
@@ -33,14 +30,13 @@ Window * windowCreate(u16 width, u16 height, const char * title, Color bg)
     }
     out->glfwWindow = window;
     glfwSetWindowUserPointer(window, out);
-    //Create the context of the window
+
     glfwMakeContextCurrent(window);
     initGraphics();
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    //Create the context of the window
     glfwMakeContextCurrent(window);
 
     glEnable(GL_BLEND);
@@ -48,7 +44,6 @@ Window * windowCreate(u16 width, u16 height, const char * title, Color bg)
 
     //Center the window in the middle of the screen
     {
-        //get videomode of the main monitor
         const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 
         int xpos = (mode->width - APP_WINDOW_WIDTH) / 2;
