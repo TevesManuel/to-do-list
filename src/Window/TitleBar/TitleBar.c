@@ -55,21 +55,8 @@ void titleBarUpdate(Window * window, TitleBar * titleBar)
         titleBar->dragged = false;
     }
 
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    glEnable(GL_TEXTURE_2D);
-    glTranslatef(0, 0, 0);
-    glBegin(GL_QUADS);
-        colorSetGLFgColor(titleBar->color);
-        glVertex2i(0, 0);
-        glVertex2i(APP_WINDOW_WIDTH, 0);
-        glVertex2i(APP_WINDOW_WIDTH, 15);
-        glVertex2i(0, 15);
-    glEnd();
-    glPopMatrix();
-
+    renderRect(vec2uFrom(0, 0), vec2uFrom(APP_WINDOW_WIDTH, TEVES_WINDOW_TITLEBAR_HEIGHT), titleBar->color);
     windowButtonRender(window, titleBar->closeButton);
     windowButtonRender(window, titleBar->minimizeButton);
-
     renderText(titleBar->title, vec2uFrom(10, 10), 1, colorFromGrayScale(255), Left);
 }

@@ -35,7 +35,7 @@ Window * windowCreate(u16 width, u16 height, const char * title, Color bg)
 
     glfwSetErrorCallback(error_callback);
 
-    GLFWwindow* window = glfwCreateWindow(width, height, title, NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(width, height + TEVES_WINDOW_TITLEBAR_HEIGHT, title, NULL, NULL);
     if (!window)
     {
         fprintf(stderr, "Failed to open GLFW window\n");
@@ -74,7 +74,8 @@ Window * windowCreate(u16 width, u16 height, const char * title, Color bg)
     Mouse * mouse = mouseCreate();
     out->mouse = mouse;
 
-    glfwSetCursorPosCallback(window, cursor_position_callback);
+    glfwSetCursorPosCallback(window, mouseCursorPositionCallback);
+    glfwSetScrollCallback(window, mouseScrollCallback);
 
     out->titleBar = titleBarCreate(out);
     out->titleBar->title = title;
@@ -89,7 +90,6 @@ bool windowIsOpen(Window * window)
 
 void windowRefresh(Window * window)
 {
-    titleBarUpdate(window, window->titleBar);
     glfwSwapBuffers(window->glfwWindow);
 }
 
@@ -113,8 +113,13 @@ void windowNewFrame(Window * window)
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    //Configure for opengl
-    glViewport(0, 0, APP_WINDOW_WIDTH, APP_WINDOW_HEIGHT);
     colorSetGLBgColor(window->bg);
     glClear(GL_COLOR_BUFFER_BIT);
+
+    glViewport(0, 0, APP_WINDOW_WIDTH, APP_WINDOW_HEIGHT + TEVES_WINDOW_TITLEBAR_HEIGHT);
+    titleBarUpdate(window, window->titleBar);
+
+    //Configure for opengl
+    glViewport(0, 0, APP_WINDOW_WIDTH, APP_WINDOW_HEIGHT);
+    renderCircle(vec2uFrom(0, 0), 15.0, colorFromRGB(0, 255, 0));
 }

@@ -1,6 +1,6 @@
 #ifndef TEVES_WINDOW_TITLEBAR_H
 #define TEVES_WINDOW_TITLEBAR_H
-
+#define TEVES_WINDOW_TITLEBAR_HEIGHT 15
 #include <stdbool.h>
 #include <utils/Graphics.h>
 #include <Controls/WindowButton.h>

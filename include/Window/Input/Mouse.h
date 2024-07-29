@@ -11,6 +11,7 @@
 
 typedef struct Mouse{
     Vec2u position;
+    float scroll;
     struct button
     {
         struct left
@@ -29,8 +30,11 @@ typedef struct Mouse{
 }Mouse;
 
 Mouse * mouseCreate();
+//Callbacks for GLFW
+void mouseCursorPositionCallback(GLFWwindow* win, double x, double y);
+void mouseScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
+
 void mouseButtonUpdate(GLFWwindow * window, Mouse * mouse);
-void cursor_position_callback(GLFWwindow* win, double x, double y);
 bool mouseIsOverRect(Mouse * mouse, Vec2u rectPosition, Vec2u rectSize);
 bool mouseIsOverRadius(Mouse * mouse, Vec2u position, float radius);
 
