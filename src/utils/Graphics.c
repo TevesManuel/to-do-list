@@ -1,6 +1,7 @@
 #include <utils/Graphics.h>
 #include <GLFW/glfw3.h>
 #include <math.h>
+#include <string.h>
 
 #ifndef M_PI//For vscode no error
 #define M_PI 3.1415926
@@ -156,9 +157,6 @@ Vec2u renderChar(char c, u16 x, u16 y, float scale, Color color)
     #endif
     return out;
 }
-
-#include <string.h>
-
 
 Vec2u renderText(const char * text, Vec2u position, int scale, Color color, Align textAlign)
 {

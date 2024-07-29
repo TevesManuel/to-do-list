@@ -1,6 +1,5 @@
 #include <Controls/Button.h>
 #include <stdlib.h>
-#include <GLFW/glfw3.h>
 #include <utils/Graphics.h>
 
 Button * buttonCreate(const char * label, void (*onClick)(void*), void * argFn, Vec2u pos, Vec2u size, Color bg, Color fg)
@@ -18,7 +17,7 @@ Button * buttonCreate(const char * label, void (*onClick)(void*), void * argFn, 
 
 void buttonUpdate(Window * window, Button * button)
 {
-    button->bg.glow = 128;
+    button->bg.glow = 200;
     if(mouseIsOverRect(window->mouse, button->position, button->size))
     {
         button->bg.glow = 255;

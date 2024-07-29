@@ -1,9 +1,7 @@
-#include <GLFW/glfw3.h>
-#include <Window/Window.h>
 #include <Config.h>
-#include <utils/Graphics.h>
-#include <Controls/Button.h>
+#include <Window/Window.h>
 #include <stdio.h>
+#include <Controls/Button.h>
 
 void testFn(void * arg)
 {
@@ -12,15 +10,20 @@ void testFn(void * arg)
 }
 
 int main()
-{       
-    if (!glfwInit())
-    {
-        fprintf(stderr, "Failed to initialize GLFW\n");
-        return -1;
-    }
+{
+    initBackend();
+    Window * window = windowCreate(APP_WINDOW_WIDTH,
+                                   APP_WINDOW_HEIGHT,
+                                   "To Do List", 
+                                   colorFromGrayScale(10));
+    Button * button = buttonCreate("+",
+                                   testFn, 
+                                   window, 
+                                   vec2uFrom(APP_WINDOW_WIDTH*0.91, APP_WINDOW_HEIGHT*0.88), 
+                                   vec2uFrom(50, 50), 
+                                   colorFromRGB(0, 255, 0), 
+                                   colorFromGrayScale(255));
 
-    Window * window = windowCreate(APP_WINDOW_WIDTH, APP_WINDOW_HEIGHT, "To Do List", colorFromGrayScale(10));
-    Button * button = buttonCreate("Touch me", testFn, window, vec2uFrom(100, 100), vec2uFrom(100, 100), colorFromGrayScale(200), colorFromGrayScale(0));
     while(windowIsOpen(window))
     {
         windowNewFrame(window);
@@ -31,6 +34,6 @@ int main()
     }
 
     windowDestroy(window);
-    glfwTerminate();
+    shutdownBackend();
     return 0;
 }

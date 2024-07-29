@@ -24,4 +24,6 @@ bool windowIsOpen(Window * window);
 void windowRefresh(Window * window);
 void windowDestroy(Window * window);
 void windowNewFrame(Window * window);
+void initBackend();
+void shutdownBackend();
 #endif

@@ -2,6 +2,20 @@
 #include <stdio.h>
 #include <utils/Graphics.h>
 
+void initBackend()
+{
+    if (!glfwInit())
+    {
+        fprintf(stderr, "Failed to initialize GLFW\n");
+        exit(-1);
+    }
+}
+
+void shutdownBackend()
+{
+    glfwTerminate();
+}
+
 static void error_callback(int e, const char *d)
 {
     printf("Error %d: %s\n", e, d);

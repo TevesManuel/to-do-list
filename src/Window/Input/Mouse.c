@@ -1,6 +1,5 @@
 #include <Window/Input/Mouse.h>
 #include <Window/Window.h>
-#include <stdio.h>
 #include <math.h>
 
 Mouse * mouseCreate()
