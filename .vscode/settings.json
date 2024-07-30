@@ -16,6 +16,7 @@
         "windowbutton.h": "c",
         "vec2.h": "c",
         "random": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "list.h": "c"
     }
 }

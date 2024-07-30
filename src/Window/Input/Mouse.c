@@ -5,7 +5,9 @@
 Mouse * mouseCreate()
 {
     Mouse * out = malloc(sizeof(Mouse));
-    out->scroll = 0.0f;
+    out->scroll.act = 0.0f;
+    out->scroll.ant = 0.0f;
+    out->scroll.offset = 0.0f;
     out->position.x = 0;
     out->position.y = 0;
     out->button.left.clicked = false;
@@ -19,6 +21,9 @@ Mouse * mouseCreate()
 
 void mouseButtonUpdate(GLFWwindow * window, Mouse * mouse)
 {
+    mouse->scroll.offset = mouse->scroll.act - mouse->scroll.ant;
+    mouse->scroll.ant = mouse->scroll.act;
+
     mouse->button.left.clickdown = false;
     mouse->button.left.clickup = false;
     mouse->button.left.clickdown = false;
@@ -60,7 +65,7 @@ void mouseButtonUpdate(GLFWwindow * window, Mouse * mouse)
 void mouseScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
 {
     Window * win = (Window*)glfwGetWindowUserPointer(window);
-    win->mouse->scroll += yoffset;
+    win->mouse->scroll.act += yoffset;
 }
 void mouseCursorPositionCallback(GLFWwindow* win, double x, double y)
 {

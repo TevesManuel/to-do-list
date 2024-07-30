@@ -121,5 +121,4 @@ void windowNewFrame(Window * window)
 
     //Configure for opengl
     glViewport(0, 0, APP_WINDOW_WIDTH, APP_WINDOW_HEIGHT);
-    renderCircle(vec2uFrom(0, 0), 15.0, colorFromRGB(0, 255, 0));
 }

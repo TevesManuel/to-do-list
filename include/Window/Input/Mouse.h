@@ -11,7 +11,12 @@
 
 typedef struct Mouse{
     Vec2u position;
-    float scroll;
+    struct scroll
+    {
+        float offset;
+        float act;
+        float ant;
+    }scroll;
     struct button
     {
         struct left

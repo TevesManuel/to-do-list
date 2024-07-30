@@ -6,6 +6,7 @@ SRC += $(SOURCEDIR)/Window/TitleBar/TitleBar.c
 SRC += $(SOURCEDIR)/Window/Window.c
 SRC += $(SOURCEDIR)/Controls/WindowButton.c
 SRC += $(SOURCEDIR)/Controls/Button.c
+SRC += $(SOURCEDIR)/Controls/List.c
 SRC += $(SOURCEDIR)/app.c
 TARGETDIR = ./target
 TARGET = $(TARGETDIR)/app.out
