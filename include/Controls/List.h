@@ -11,12 +11,12 @@ typedef struct List
     Vec2u textPosition;
     Color bg;
     Color fg;
-    void * listItems;
+    void ** listItems;
     u16 * sizeOfList;
     char * (*strObjectFn)(void*, int);
 }List;
 
-List * listCreate(Vec2u position, Vec2u size, Color bg, Color fg, void * listItems, u16 * sizeOfList, char* (*strObjectFn)(void*, int));
+List * listCreate(Vec2u position, Vec2u size, Color bg, Color fg, void ** listItems, u16 * sizeOfList, char* (*strObjectFn)(void*, int));
 void listUpdate(Window * window, List * list);
 
 #endif

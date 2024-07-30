@@ -1,6 +1,6 @@
 #include<Controls/List.h>
 
-List * listCreate(Vec2u position, Vec2u size, Color bg, Color fg, void * listItems, u16 * sizeOfList, char* (*strObjectFn)(void*, int))
+List * listCreate(Vec2u position, Vec2u size, Color bg, Color fg, void ** listItems, u16 * sizeOfList, char* (*strObjectFn)(void*, int))
 {
     List * out = (List*)malloc(sizeof(List));
     out->position = position;
@@ -41,7 +41,7 @@ void listUpdate(Window * window, List * list)
 
     for(int i = 0; i < *list->sizeOfList; i++)
     {
-        char * text = list->strObjectFn(list->listItems, i);
+        char * text = list->strObjectFn(*list->listItems, i);
         renderText(text, 
                    vec2uFrom(list->position.x, list->position.y + i * 15 + list->textPosition.y),
                    1,

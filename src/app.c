@@ -45,7 +45,7 @@ int main()
                              vec2uFrom(200, 200),
                              colorFromGrayScale(20),
                              colorFromGrayScale(255),
-                             a, &b,
+                             (void**)&a, &b,
                              strListObject);
 
     while(windowIsOpen(window))
