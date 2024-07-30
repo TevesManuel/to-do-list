@@ -88,8 +88,27 @@ bool windowIsOpen(Window * window)
     return !glfwWindowShouldClose(window->glfwWindow) && !window->onExit;
 }
 
+#include <time.h>
+
+void limitFramesPerSecond(int target_fps) {
+    static double last_time = 0.0;
+    double current_time = glfwGetTime();
+    double frame_time = 1.0 / target_fps;
+    double sleep_time = frame_time - (current_time - last_time);
+
+    if (sleep_time > 0.0) {
+        struct timespec ts;
+        ts.tv_sec = (time_t)sleep_time;
+        ts.tv_nsec = (sleep_time - ts.tv_sec) * 1e9;
+        nanosleep(&ts, NULL);
+    }
+
+    last_time = glfwGetTime();
+}
+
 void windowRefresh(Window * window)
 {
+    limitFramesPerSecond(59);
     glfwSwapBuffers(window->glfwWindow);
 }
 
