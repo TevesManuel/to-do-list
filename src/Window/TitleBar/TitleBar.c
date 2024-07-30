@@ -23,8 +23,8 @@ TitleBar * titleBarCreate(Window * window)
     out->ry = 0;
     out->dragged = false;
     out->color = TITLE_BG;
-    out->closeButton = windowButtonCreate(vec2uFrom(APP_WINDOW_WIDTH*0.99, 7), 7, colorFromRGB(255, 0, 0));
-    out->minimizeButton = windowButtonCreate(vec2uFrom(APP_WINDOW_WIDTH*0.99 - 18, 7), 7, colorFromRGB(180, 180, 180));
+    out->closeButton = windowButtonCreate(vec2uFrom(APP_WINDOW_WIDTH-8, 7), 7, colorFromRGB(255, 0, 0));
+    out->minimizeButton = windowButtonCreate(vec2uFrom(APP_WINDOW_WIDTH - 25, 7), 7, colorFromRGB(180, 180, 180));
     out->closeButton->onClickCbk = closeButtonCbk;
     out->closeButton->onClickCbkArgs = (void*)window;
     out->minimizeButton->onClickCbk = minimizeButtonOnClickCbk;
@@ -58,5 +58,5 @@ void titleBarUpdate(Window * window, TitleBar * titleBar)
     renderRect(vec2uFrom(0, 0), vec2uFrom(APP_WINDOW_WIDTH, TEVES_WINDOW_TITLEBAR_HEIGHT), titleBar->color);
     windowButtonRender(window, titleBar->closeButton);
     windowButtonRender(window, titleBar->minimizeButton);
-    renderText(titleBar->title, vec2uFrom(10, 10), 1, colorFromGrayScale(255), Left);
+    renderText(titleBar->title, vec2uFrom(10, 10), 1, colorFromGrayScale(255), TextAlignLeft);
 }

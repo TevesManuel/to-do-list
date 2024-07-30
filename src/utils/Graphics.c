@@ -161,7 +161,7 @@ Vec2u renderChar(char c, u16 x, u16 y, float scale, Color color)
 Vec2u renderText(const char * text, Vec2u position, int scale, Color color, Align textAlign)
 {
     Vec2u renderPosition = position;
-    if(textAlign == Center)
+    if(textAlign == TextAlignCenter)
     {
         renderPosition.x = position.x - (sizeText(text, scale).x/2.0);
     }

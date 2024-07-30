@@ -108,7 +108,7 @@ void windowNewFrame(Window * window)
     //Configure for render OpenGL
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(0, APP_WINDOW_WIDTH, APP_WINDOW_HEIGHT, 0, -1, 1);
+    glOrtho(0, APP_WINDOW_WIDTH, APP_WINDOW_HEIGHT + TEVES_WINDOW_TITLEBAR_HEIGHT, 0, -1, 1);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -119,6 +119,15 @@ void windowNewFrame(Window * window)
     glViewport(0, 0, APP_WINDOW_WIDTH, APP_WINDOW_HEIGHT + TEVES_WINDOW_TITLEBAR_HEIGHT);
     titleBarUpdate(window, window->titleBar);
 
+    glPopMatrix();
+    glPopMatrix();
+
     //Configure for opengl
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(0, APP_WINDOW_WIDTH, APP_WINDOW_HEIGHT, 0, -1, 1);
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
     glViewport(0, 0, APP_WINDOW_WIDTH, APP_WINDOW_HEIGHT);
 }

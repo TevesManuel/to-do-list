@@ -5,7 +5,7 @@ List * listCreate(Vec2u position, Vec2u size, Color bg, Color fg, void ** listIt
     List * out = (List*)malloc(sizeof(List));
     out->position = position;
     out->size = size;
-    out->textPosition = vec2uFrom(0, 0);
+    out->textPosition = vec2iFrom(0, 0);
     out->bg = bg;
     out->fg = fg;
     out->listItems = listItems;
@@ -33,7 +33,12 @@ void listUpdate(Window * window, List * list)
     glPushMatrix();
     glLoadIdentity();
 
-    list->textPosition.y += window->mouse->scroll.offset * 10;
+    list->textPosition.y += window->mouse->scroll.offset * 20;
+
+    if(list->textPosition.y > 0)
+        list->textPosition.y = 0;
+    if(list->textPosition.y < (-((*list->sizeOfList)*15) + list->size.y))
+        list->textPosition.y = -((*list->sizeOfList)*15) + list->size.y;
 
     // All works good
     // renderRect(vec2uFrom(list->position.x + 10, list->position.y + 10), vec2uFrom(list->size.x - 20, list->size.y - 20), colorFromRGB(255, 255, 255));
@@ -46,9 +51,8 @@ void listUpdate(Window * window, List * list)
                    vec2uFrom(list->position.x, list->position.y + i * 15 + list->textPosition.y),
                    1,
                    list->fg,
-                   Left);
+                   TextAlignLeft);
         free(text);
-        renderCircle(list->position, 10, colorFromRGB(0, 255, 0));
     }
 
     // Restore arrays & viewport originals
@@ -59,5 +63,5 @@ void listUpdate(Window * window, List * list)
     glViewport(viewport[0], viewport[1], viewport[2], viewport[3]);
 
     // Render outline for debug
-    renderRectOutline(list->position, list->size, colorFromRGB(0, 255, 255));
+    renderRectOutline(list->position, list->size, colorFromGrayScale(255));
 }

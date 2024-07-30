@@ -31,7 +31,7 @@ int main()
     Button * button = buttonCreate("+",
                                    testFn, 
                                    window, 
-                                   vec2uFrom(APP_WINDOW_WIDTH*0.91, APP_WINDOW_HEIGHT*0.88), 
+                                   vec2uFrom(240, 250), 
                                    vec2uFrom(50, 50), 
                                    colorFromRGB(0, 255, 0), 
                                    colorFromGrayScale(255));
@@ -41,8 +41,8 @@ int main()
     {
         a[i] = i;
     }
-    List * list = listCreate(vec2uFrom(100, 100),
-                             vec2uFrom(200, 200),
+    List * list = listCreate(vec2uFrom(10, 10),
+                             vec2uFrom(APP_WINDOW_WIDTH-20, APP_WINDOW_HEIGHT-30),
                              colorFromGrayScale(20),
                              colorFromGrayScale(255),
                              (void**)&a, &b,
@@ -52,8 +52,10 @@ int main()
     {
         windowNewFrame(window);
 
-        buttonUpdate(window, button);
         listUpdate(window, list);
+        buttonUpdate(window, button);
+
+        renderText("TEVES SOFTWARE", vec2uFrom(0, APP_WINDOW_HEIGHT), 1, colorFromGrayScale(255), TextAlignLeft);
         windowRefresh(window);
     }
 

@@ -8,7 +8,7 @@ typedef struct List
 {
     Vec2u position;
     Vec2u size;
-    Vec2u textPosition;
+    Vec2i textPosition;
     Color bg;
     Color fg;
     void ** listItems;

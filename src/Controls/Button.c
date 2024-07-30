@@ -30,5 +30,5 @@ void buttonUpdate(Window * window, Button * button)
         }
     }
     renderRect(button->position, button->size, button->bg);
-    renderText(button->label, vec2uAdd(button->position, vec2uDiv(button->size, 2)), 1, button->fg, Center);
+    renderText(button->label, vec2uAdd(button->position, vec2uDiv(button->size, 2)), 1, button->fg, TextAlignCenter);
 }

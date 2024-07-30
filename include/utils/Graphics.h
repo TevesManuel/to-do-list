@@ -21,8 +21,8 @@ void initGraphics();
 
 typedef enum 
 {
-    Left,
-    Center
+    TextAlignLeft,
+    TextAlignCenter
 }Align;
 
 Vec2u renderText(const char * text, Vec2u position, int scale, Color color, Align textAlign);
